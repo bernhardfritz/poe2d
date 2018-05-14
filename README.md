@@ -14,6 +14,7 @@ make
 
 ## IntelliSense for vscode
 
+* Open directory `poe2d` in vscode, e.g. by typing `code .` in terminal while your working directory is `poe2d`
 * Press `ctrl/command` + `shift` + `p`
 * Select `C/Cpp: Edit Configurations...`
 * Edit the `includePath` array:
