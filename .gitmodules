@@ -1,0 +1,3 @@
+[submodule "lib/libxd"]
+	path = lib/libxd
+	url = https://github.com/bernhardfritz/libxd.git
