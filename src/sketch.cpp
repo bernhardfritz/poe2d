@@ -3,7 +3,7 @@
 using namespace xd;
 
 void setup() {
-    size(640, 480);
+    size(720, 480);
 }
 
 void draw() {
