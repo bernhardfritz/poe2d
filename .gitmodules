@@ -1,3 +1,6 @@
 [submodule "lib/libxd"]
 	path = lib/libxd
 	url = https://github.com/bernhardfritz/libxd.git
+[submodule "lib/hqx"]
+	path = lib/hqx
+	url = https://github.com/bernhardfritz/hqx.git

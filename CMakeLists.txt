@@ -3,6 +3,7 @@ project(poe2d)
 set (CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(lib/libxd)
+add_subdirectory(lib/hqx)
 
 add_executable(${PROJECT_NAME} src/sketch.cpp)
 
