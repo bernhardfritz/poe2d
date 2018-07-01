@@ -1,3 +1,9 @@
 [submodule "lib/libxd"]
 	path = lib/libxd
 	url = https://github.com/bernhardfritz/libxd.git
+[submodule "lib/tmxparser"]
+	path = lib/tmxparser
+	url = https://github.com/sainteos/tmxparser.git
+[submodule "lib/tinyxml2"]
+	path = lib/tinyxml2
+	url = https://github.com/leethomason/tinyxml2.git

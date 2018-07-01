@@ -33,3 +33,7 @@ To upscale all images of directory `dungeon-01/remapped` by a factor of `2` and 
 ```bash
 ./hqx_batch.sh dungeon-01/remapped 2 dungeon-01/upscaled
 ```
+
+## Stitches
+
+https://draeton.github.io/stitches/ can be used to generate spritesheets from a collection of sprites.
