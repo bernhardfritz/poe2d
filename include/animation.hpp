@@ -20,7 +20,7 @@ public:
     Animation(std::initializer_list<Sprite> frames, int frameDuration) : Animation(frames, frameDuration, 0, 0) {
     }
 
-    void draw(float dx, float dy, float dWidth, float dHeight, bool flipHorizontally = false, bool flipVertically = false);
+    void draw(float dx, float dy, float dWidth, float dHeight, bool flipHorizontally = false, bool flipVertically = false, bool flipDiagonally = false);
 };
 
 

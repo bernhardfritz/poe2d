@@ -16,7 +16,7 @@ public:
         , sHeight(sHeight) {
     }
 
-    void draw(float dx, float dy, float dWidth, float dHeight, bool flipHorizontally = false, bool flipVertically = false);
+    void draw(float dx, float dy, float dWidth, float dHeight, bool flipHorizontally = false, bool flipVertically = false, bool flipDiagonally = false);
 };
 
 #endif /* SPRITE_HPP */

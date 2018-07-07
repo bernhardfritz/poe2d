@@ -54,9 +54,9 @@ void TmxMapWrapper::draw() {
                     int tileId = mapTile.id;
                     auto tile = tileset->GetTile(tileId);
                     if (tile && tile->IsAnimated()) {
-                        animations[make_pair(tilesetId, tileId)]->draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically);
+                        animations[make_pair(tilesetId, tileId)]->draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically, mapTile.flippedDiagonally);
                     } else {
-                        spritesheets[tilesetId]->sprites[tileId].draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically);
+                        spritesheets[tilesetId]->sprites[tileId].draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically, mapTile.flippedDiagonally);
                     }
                 }
             }
