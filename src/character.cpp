@@ -10,19 +10,19 @@ void Character::draw(float dx,
                      bool flipHorizontally,
                      bool flipVertically){
 
-    Animation *toUse = down;
+    Animation *toUse = lookDown;
     switch(direction){
         case Direction::up:
-            toUse = up;
+            toUse = walking ? walkUp : lookUp;
             break;
         case Direction::right:
-            toUse = right;
+            toUse = walking ? walkRight : lookRight;
             break;
         case Direction::down:
-            toUse = down;
+            toUse = walking ? walkDown : lookDown;
             break;
         case Direction::left:
-            toUse = left;
+            toUse = walking ? walkLeft : lookLeft;
             break;
         default:
             break;
@@ -81,7 +81,7 @@ float Character::getX(){
 }
 
 float Character::getCenterX(){
-    return x + (height / 2);
+    return x + (width / 2);
 }
 
 float Character::getY(){
@@ -89,5 +89,21 @@ float Character::getY(){
 }
 
 float Character::getCenterY(){
-    return y + (width / 2);
+    return y + (height / 2);
+}
+
+float Character::getHeight(){
+    return height;
+}
+
+float Character::getWidth(){
+    return width;
+}
+
+bool Character::isWalking(){
+    return walking;
+}
+
+void Character::setWalking(bool walking){
+    Character::walking = walking;
 }

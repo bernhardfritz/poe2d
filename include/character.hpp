@@ -16,15 +16,24 @@ public:
               Animation *walkingRight,
               Animation *walkingDown,
               Animation *walkingLeft,
+              Animation *lookingUp,
+              Animation *lookingRight,
+              Animation *lookingDown,
+              Animation *lookingLeft,
               float height,
               float width,
               float baseMoveSpeed) :
-                    up(walkingUp),
-                    right(walkingRight),
-                    down(walkingDown),
-                    left(walkingLeft),
+                    lookUp(lookingUp),
+                    lookRight(lookingRight),
+                    lookDown(lookingDown),
+                    lookLeft(lookingLeft),
+                    walkUp(walkingUp),
+                    walkRight(walkingRight),
+                    walkDown(walkingDown),
+                    walkLeft(walkingLeft),
                     direction(Direction::down),
                     moveSpeed(baseMoveSpeed),
+                    walking(false),
                     x(0.0f),
                     y(0.0f),
                     height(height),
@@ -58,19 +67,28 @@ public:
     // move the character, relative to its current position (without altering its direction animation)
     void moveRelative(float dx, float dy);
 
-    // getters
+    // getters, setters
     float getMoveSpeed();
     float getX();
     float getCenterX();
     float getY();
     float getCenterY();
+    float getHeight();
+    float getWidth();
+    bool isWalking();
+    void setWalking(bool walking);
 
 private:
-    Animation *up;
-    Animation *right;
-    Animation *down;
-    Animation *left;
+    Animation *lookUp;
+    Animation *lookRight;
+    Animation *lookDown;
+    Animation *lookLeft;
+    Animation *walkUp;
+    Animation *walkRight;
+    Animation *walkDown;
+    Animation *walkLeft;
     Direction direction;
+    bool walking;
     float moveSpeed; // character's base movement speed
     float x, y;
     float height, width;

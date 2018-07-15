@@ -11,6 +11,7 @@ bool moveCharacter(Character *character, float mouseX, float mouseY){
     
     // calculate how far (percentage of the way) we can go with the character's speed
     double m = std::min(character->getMoveSpeed() / dz, 1.0);
+    bool stillWalking = (m < 1.0);
 
     // alpha is the angle between character and the mouse click
     // it is used for picking one of the four possible movement animations
@@ -77,8 +78,9 @@ bool moveCharacter(Character *character, float mouseX, float mouseY){
     // move the character and update its direction value
     character->moveRelative(moveX, moveY);
     character->setDirection(dir);
+    character->setWalking(stillWalking);
 
     // if the movement has been completed, return TRUE
     // otherwise, FALSE
-    return m >= 1.0;
+    return !stillWalking;
 }

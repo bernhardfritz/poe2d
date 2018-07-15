@@ -17,7 +17,8 @@ Camera* camera;
 TmxMapWrapper* tmxmapwrapper;
 Image *img;
 Spritesheet *spritesheet;
-Animation *upAnim, *rightAnim, *downAnim, *leftAnim;
+Animation *walkUp, *walkRight, *walkDown, *walkLeft;
+Animation *lookUp, *lookRight, *lookDown, *lookLeft;
 Character *character;
 float cameraOffsetX, cameraOffsetY;
 float mouseX = 0.0;
@@ -80,34 +81,75 @@ void onMouseClicked(int mouseButton){
 // ---------------- //
 
 void setupCharacter(){
-    img = loadImage("./resources/character.png");
-    spritesheet = new Spritesheet(img, 4, 4);
-    upAnim = new Animation({
+    img = loadImage("./resources/characters/character.png");
+    spritesheet = new Spritesheet(img, 10, 8);
+
+    walkDown = new Animation({
         spritesheet->sprites[0],
         spritesheet->sprites[1],
         spritesheet->sprites[2],
         spritesheet->sprites[3],
-    }, 17);
-    rightAnim = new Animation({
         spritesheet->sprites[4],
         spritesheet->sprites[5],
         spritesheet->sprites[6],
         spritesheet->sprites[7],
-    }, 17);
-    downAnim = new Animation({
         spritesheet->sprites[8],
-        spritesheet->sprites[9],
+        spritesheet->sprites[9]
+    }, 50);
+    walkUp= new Animation({
         spritesheet->sprites[10],
         spritesheet->sprites[11],
-    }, 17);
-    leftAnim = new Animation({
         spritesheet->sprites[12],
         spritesheet->sprites[13],
         spritesheet->sprites[14],
         spritesheet->sprites[15],
-    }, 17);
+        spritesheet->sprites[16],
+        spritesheet->sprites[17],
+        spritesheet->sprites[18],
+        spritesheet->sprites[19]
+    }, 50);
+    walkRight = new Animation({
+        spritesheet->sprites[20],
+        spritesheet->sprites[21],
+        spritesheet->sprites[22],
+        spritesheet->sprites[23],
+        spritesheet->sprites[24],
+        spritesheet->sprites[25],
+        spritesheet->sprites[26],
+        spritesheet->sprites[27],
+        spritesheet->sprites[28],
+        spritesheet->sprites[29]
+    }, 50);
+    walkLeft = new Animation({
+        spritesheet->sprites[30],
+        spritesheet->sprites[31],
+        spritesheet->sprites[32],
+        spritesheet->sprites[33],
+        spritesheet->sprites[34],
+        spritesheet->sprites[35],
+        spritesheet->sprites[36],
+        spritesheet->sprites[37],
+        spritesheet->sprites[38],
+        spritesheet->sprites[39]
+    }, 50);
+    lookDown = new Animation({
+        spritesheet->sprites[40],
+        spritesheet->sprites[41]
+    }, 5000);
+    lookUp = new Animation({
+        spritesheet->sprites[50],
+        spritesheet->sprites[51]
+    }, 5000);
+    lookRight = new Animation({
+        spritesheet->sprites[60]
+    }, 5000);
+    lookLeft = new Animation({
+        spritesheet->sprites[70]
+    }, 5000);
 
-    character = new Character(upAnim, rightAnim, downAnim, leftAnim, 30.0, 30.0, 5.0);
+    character = new Character(walkUp, walkRight, walkDown, walkLeft,
+                              lookUp, lookRight, lookDown, lookLeft,
+                              84.0, 60.0, 5.0);
 }
 
 void moveCharacter(){
@@ -149,5 +191,11 @@ void draw() {
 void destroy() {
     delete camera;
     delete tmxmapwrapper;
+    delete walkUp;
+    delete walkRight;
+    delete walkDown;
+    delete walkLeft;
+    delete img;
+    delete spritesheet;
     delete character;
 }
