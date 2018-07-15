@@ -1,5 +1,11 @@
 language: cpp
 
+addons:
+  apt:
+    packages:
+    - libgl1-mesa-dev
+    - xorg-dev
+
 compiler:
   - g++
 
