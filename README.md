@@ -1,4 +1,4 @@
-# poe2d
+# poe2d [![Build Status](https://travis-ci.org/bernhardfritz/poe2d.svg?branch=master)](https://travis-ci.org/bernhardfritz/poe2d)
 
 ![logo](q7x8w6lmy5hz.png)
 
