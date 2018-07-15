@@ -22,6 +22,8 @@ target_sources(${PROJECT_NAME}
     PUBLIC src/spritesheet.cpp
     PUBLIC src/camera.cpp
     PUBLIC src/tmxmapwrapper.cpp
+    PUBLIC src/character.cpp
+    PUBLIC src/movement.cpp
 )
 target_include_directories(${PROJECT_NAME}
     PUBLIC include
