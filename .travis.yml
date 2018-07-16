@@ -3,7 +3,6 @@ language: cpp
 addons:
   apt:
     packages:
-    - libgl1-mesa-dev
     - xorg-dev
 
 compiler:
@@ -14,4 +13,5 @@ before_script:
   - cd build
   - cmake ..
 
-script: make
+script:
+  - make

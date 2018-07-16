@@ -10,6 +10,8 @@
 class TmxMapWrapper {
     public:
     Tmx::Map* tmxmap;
+    int cols, rows, tileWidth, tileHeight;
+    std::vector<bool> collisionGrid;
     glm::vec4 backgroundColor;
     std::vector<xd::Image*> images;
     std::vector<Spritesheet*> spritesheets;
@@ -17,6 +19,9 @@ class TmxMapWrapper {
 
     TmxMapWrapper(const std::string& filename);
     ~TmxMapWrapper();
+
+    bool isCollisionAtTile(int col, int row);
+    bool isCollisionAtCoords(int x, int y);
 
     void draw();
 };

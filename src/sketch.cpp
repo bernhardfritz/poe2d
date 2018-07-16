@@ -26,6 +26,7 @@ float mouseY = 0.0;
 float clickX = 0.0;
 float clickY = 0.0;
 bool moveComplete = true;
+bool showCollisionGrid = false;
 
 // -------------- //
 // Input Handlers //
@@ -35,22 +36,27 @@ void onKeyPressed(int key) {
     // update camera position
     // as well as mouse position
     // (which otherwise wouldn't get updated until next onMouseMoved())
+    const int& tileWidth = tmxmapwrapper->tileWidth;
+    const int& tileHeight = tmxmapwrapper->tileHeight;
     switch(key) {
         case KEY_LEFT:
-            camera->x -= 32;
-            mouseX -= 32;
+            camera->x -= tileWidth;
+            mouseX -= tileWidth;
             break;
         case KEY_RIGHT:
-            camera->x += 32;
-            mouseX += 32;
+            camera->x += tileWidth;
+            mouseX += tileWidth;
             break;
         case KEY_UP:
-            camera->y -= 32;
-            mouseY -= 32;
+            camera->y -= tileHeight;
+            mouseY -= tileHeight;
             break;
         case KEY_DOWN:
-            camera->y += 32;
-            mouseY += 32;
+            camera->y += tileHeight;
+            mouseY += tileHeight;
+            break;
+        case 'C':
+            showCollisionGrid = !showCollisionGrid;
             break;
     }
 }
@@ -159,6 +165,26 @@ void moveCharacter(){
     }
 }
 
+void drawColissionGrid() {
+    const int& tileWidth = tmxmapwrapper->tileWidth;
+    const int& tileHeight = tmxmapwrapper->tileHeight;
+    for (int row = 0; row < tmxmapwrapper->rows; row++) {
+        for (int col = 0; col < tmxmapwrapper->cols; col++) {
+            if (tmxmapwrapper->isCollisionAtTile(col, row)) {
+                fill(vec4(1.0f, 0.0f, 0.0f, 0.5f));
+                noStroke();
+                rect(col * tileWidth, row * tileHeight, tileWidth, tileHeight);
+            }
+        }
+    }
+    if (tmxmapwrapper->isCollisionAtCoords(mouseX, mouseY)) {
+        stroke(vec4(1.0f, 0.0f, 0.0f, 1.0f));
+        strokeWeight(5.0f);
+        line(mouseX - 10, mouseY - 10, mouseX + 10, mouseY + 10);
+        line(mouseX + 10, mouseY - 10, mouseX - 10, mouseY + 10);
+    }
+}
+
 // ------------------- //
 // Framework Callbacks //
 // ------------------- //
@@ -182,6 +208,9 @@ void setup() {
 void draw() {
     camera->update();
     tmxmapwrapper->draw();
+    if (showCollisionGrid) {
+        drawColissionGrid();
+    }
 
     // move the character and draw it
     moveCharacter();

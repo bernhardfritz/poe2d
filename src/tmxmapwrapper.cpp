@@ -7,6 +7,11 @@ using namespace xd;
 TmxMapWrapper::TmxMapWrapper(const string& filename) {
     tmxmap = new Tmx::Map();
     tmxmap->ParseFile(filename);
+    cols = tmxmap->GetHeight();
+    rows = tmxmap->GetWidth();
+    tileWidth = tmxmap->GetTileWidth();
+    tileHeight = tmxmap->GetTileHeight();
+    collisionGrid.resize(cols * rows);
 
     auto tmxBackgroundColor = tmxmap->GetBackgroundColor();
     backgroundColor = vec4(tmxBackgroundColor.GetRed() / 255.0f, tmxBackgroundColor.GetGreen() / 255.0f, tmxBackgroundColor.GetBlue() / 255.0f, tmxBackgroundColor.GetAlpha() / 255.0f);
@@ -40,11 +45,21 @@ TmxMapWrapper::~TmxMapWrapper() {
     spritesheets.clear();
 }
 
+bool TmxMapWrapper::isCollisionAtTile(int col, int row) {
+    return 0 <= col && col < cols && 0 <= row && row < rows && collisionGrid[row * cols + col];
+}
+
+bool TmxMapWrapper::isCollisionAtCoords(int x, int y) {
+    int col = x / tileWidth;
+    int row = y / tileHeight;
+    return isCollisionAtTile(col, row);
+}
+
 void TmxMapWrapper::draw() {
     background(backgroundColor);
     for (auto tileLayer : tmxmap->GetTileLayers()) {
-        for (int y = 0; y < tileLayer->GetHeight(); y++) {
-            for(int x = 0; x < tileLayer->GetWidth(); x++) {
+        for (int y = 0; y < rows; y++) {
+            for(int x = 0; x < cols; x++) {
                 if (tileLayer->GetTileTilesetIndex(x, y) > -1) {
                     auto mapTile = tileLayer->GetTile(x, y);
                     int tilesetId = mapTile.tilesetId;
@@ -57,6 +72,10 @@ void TmxMapWrapper::draw() {
                         animations[make_pair(tilesetId, tileId)]->draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically, mapTile.flippedDiagonally);
                     } else {
                         spritesheets[tilesetId]->sprites[tileId].draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically, mapTile.flippedDiagonally);
+                    }
+                    if (tile) {
+                        auto properties = tile->GetProperties();
+                        collisionGrid[y * cols + x] = properties.GetBoolProperty("collidable");
                     }
                 }
             }
