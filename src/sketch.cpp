@@ -1,6 +1,7 @@
 #include <xd/xd.hpp>
 #include <Tmx.h>
 #include <iostream>
+#include <functional>
 #include "spritesheet.hpp"
 #include "camera.hpp"
 #include "tmxmapwrapper.hpp"
@@ -185,6 +186,13 @@ void drawColissionGrid() {
     }
 }
 
+void drawOutlined(std::function<void()> fnDraw) {
+    tint(vec4(1.0f, 0.0, 0.0, 1.0), true);
+    fnDraw();
+    noTint();
+    fnDraw();
+}
+
 // ------------------- //
 // Framework Callbacks //
 // ------------------- //
@@ -214,7 +222,12 @@ void draw() {
 
     // move the character and draw it
     moveCharacter();
-    character->draw();
+    if (character->getX() < mouseX && mouseX < character->getX() + character->getWidth()
+        && character->getY() < mouseY && mouseY < character->getY() + character->getHeight()) {
+        drawOutlined([]() { character->draw(); });
+    } else {
+        character->draw();
+    }
 }
 
 void destroy() {

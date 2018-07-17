@@ -8,6 +8,7 @@ set(TINYXML2_LIBRARIES tinyxml2)
 set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 set(BUILD_STATIC_LIBS OFF CACHE BOOL "" FORCE)
 set(BUILD_DOCUMENTATION OFF CACHE BOOL "" FORCE)
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(lib/libxd)
 add_subdirectory(lib/tinyxml2)
