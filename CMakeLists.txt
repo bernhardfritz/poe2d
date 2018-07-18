@@ -25,6 +25,7 @@ target_sources(${PROJECT_NAME}
     PUBLIC src/tmxmapwrapper.cpp
     PUBLIC src/character.cpp
     PUBLIC src/movement.cpp
+    PUBLIC src/lightpass.cpp
 )
 target_include_directories(${PROJECT_NAME}
     PUBLIC include

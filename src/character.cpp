@@ -46,11 +46,15 @@ void Character::setDirection(Direction dir){
 void Character::moveRelative(float dx, float dy){
     x += dx;
     y += dy;
+    camera.position = vec2(getCenterX(), getCenterY());
+    light.lightPos = vec2(getCenterX(), getCenterY());
 }
 
 void Character::moveAbsolute(float newX, float newY){
     x = newX;
     y = newY;
+    camera.position = vec2(getCenterX(), getCenterY());
+    light.lightPos = vec2(getCenterX(), getCenterY());
 }
 
 void Character::move(){

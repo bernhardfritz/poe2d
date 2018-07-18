@@ -1,13 +1,14 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
+#include <glm/vec2.hpp>
+
 class Camera {
 public:
-    int x, y;
+    glm::vec2 position;
 
-    Camera(int x, int y) : x(x), y(y) {
-    }
-
+    glm::vec2 screenToWorld(glm::vec2 screen);
+    glm::vec2 worldToScreen(glm::vec2 world);
     void update();
 };
 

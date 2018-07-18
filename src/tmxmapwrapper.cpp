@@ -4,7 +4,7 @@
 
 using namespace xd;
 
-TmxMapWrapper::TmxMapWrapper(const string& filename) {
+TmxMapWrapper::TmxMapWrapper(const string& filename, vector<Light>& lights) {
     tmxmap = new Tmx::Map();
     tmxmap->ParseFile(filename);
     cols = tmxmap->GetHeight();
@@ -12,6 +12,33 @@ TmxMapWrapper::TmxMapWrapper(const string& filename) {
     tileWidth = tmxmap->GetTileWidth();
     tileHeight = tmxmap->GetTileHeight();
     collisionGrid.resize(cols * rows);
+
+    for (auto tileLayer : tmxmap->GetTileLayers()) {
+        for (int y = 0; y < rows; y++) {
+            for(int x = 0; x < cols; x++) {
+                if (tileLayer->GetTileTilesetIndex(x, y) > -1) {
+                    auto mapTile = tileLayer->GetTile(x, y);
+                    int tilesetId = mapTile.tilesetId;
+                    auto tileset = tmxmap->GetTileset(tilesetId);
+                    int tileId = mapTile.id;
+                    auto tile = tileset->GetTile(tileId);
+                    if (tile) {
+                        auto properties = tile->GetProperties();
+                        collisionGrid[y * cols + x] = properties.GetBoolProperty("collidable");
+                        if (properties.GetBoolProperty("emitsLight")) {
+                            auto lightColor = properties.GetColorProperty("lightColor");
+                            lights.push_back({
+                                Light::LightType::POINT,
+                                vec2(x * tileWidth + tileWidth / 2, y * tileHeight + tileHeight / 2),
+                                vec4(lightColor.GetRed() / 255.0f, lightColor.GetGreen() / 255.0f, lightColor.GetBlue() / 255.0f, lightColor.GetAlpha() / 255.0f),
+                                0.05
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     auto tmxBackgroundColor = tmxmap->GetBackgroundColor();
     backgroundColor = vec4(tmxBackgroundColor.GetRed() / 255.0f, tmxBackgroundColor.GetGreen() / 255.0f, tmxBackgroundColor.GetBlue() / 255.0f, tmxBackgroundColor.GetAlpha() / 255.0f);
@@ -72,10 +99,6 @@ void TmxMapWrapper::draw() {
                         animations[make_pair(tilesetId, tileId)]->draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically, mapTile.flippedDiagonally);
                     } else {
                         spritesheets[tilesetId]->sprites[tileId].draw(x * tileWidth, y * tileHeight, tileWidth, tileHeight, mapTile.flippedHorizontally, mapTile.flippedVertically, mapTile.flippedDiagonally);
-                    }
-                    if (tile) {
-                        auto properties = tile->GetProperties();
-                        collisionGrid[y * cols + x] = properties.GetBoolProperty("collidable");
                     }
                 }
             }

@@ -192,6 +192,8 @@
   <tile id="44">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
    <animation>
     <frame tileid="44" duration="100"/>
@@ -248,6 +250,8 @@
   <tile id="60">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="64">
@@ -288,16 +292,22 @@
   <tile id="74">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="75">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="76">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
    <animation>
     <frame tileid="76" duration="100"/>
@@ -316,21 +326,29 @@
   <tile id="80">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="81">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="82">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="83">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
    <animation>
     <frame tileid="83" duration="100"/>
@@ -342,16 +360,22 @@
   <tile id="84">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="85">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="86">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="emitsLight" type="bool" value="true"/>
+    <property name="lightColor" type="color" value="#ffff4000"/>
    </properties>
   </tile>
   <tile id="92">

@@ -2,6 +2,8 @@
 #define CHARACTER_HPP
 
 #include "animation.hpp"
+#include "camera.hpp"
+#include "lightpass.hpp"
 
 enum Direction{
     up    = 0,
@@ -22,7 +24,9 @@ public:
               Animation *lookingLeft,
               float height,
               float width,
-              float baseMoveSpeed) :
+              float baseMoveSpeed,
+              Camera& camera,
+              Light& light) :
                     lookUp(lookingUp),
                     lookRight(lookingRight),
                     lookDown(lookingDown),
@@ -37,7 +41,9 @@ public:
                     x(0.0f),
                     y(0.0f),
                     height(height),
-                    width(width) {
+                    width(width),
+                    camera(camera),
+                    light(light) {
               }
 
     // draw the character, but choose its position, scale and mirroring
@@ -92,6 +98,8 @@ private:
     float moveSpeed; // character's base movement speed
     float x, y;
     float height, width;
+    Camera& camera;
+    Light& light;
 };
 
 #endif /* CHARACTER_HPP */

@@ -6,6 +6,7 @@
 #include <Tmx.h>
 #include "spritesheet.hpp"
 #include "animation.hpp"
+#include "lightpass.hpp"
 
 class TmxMapWrapper {
     public:
@@ -17,7 +18,7 @@ class TmxMapWrapper {
     std::vector<Spritesheet*> spritesheets;
     std::map<std::pair<int, int>, Animation*> animations;
 
-    TmxMapWrapper(const std::string& filename);
+    TmxMapWrapper(const std::string& filename, std::vector<Light>& lights);
     ~TmxMapWrapper();
 
     bool isCollisionAtTile(int col, int row);

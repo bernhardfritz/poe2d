@@ -7,6 +7,7 @@
 #include "tmxmapwrapper.hpp"
 #include "character.hpp"
 #include "movement.hpp"
+#include "lightpass.hpp"
 
 using namespace xd;
 
@@ -14,20 +15,20 @@ using namespace xd;
 // Variables //
 // --------- //
 
-Camera* camera;
+Camera camera;
 TmxMapWrapper* tmxmapwrapper;
 Image *img;
 Spritesheet *spritesheet;
 Animation *walkUp, *walkRight, *walkDown, *walkLeft;
 Animation *lookUp, *lookRight, *lookDown, *lookLeft;
 Character *character;
-float cameraOffsetX, cameraOffsetY;
 float mouseX = 0.0;
 float mouseY = 0.0;
 float clickX = 0.0;
 float clickY = 0.0;
 bool moveComplete = true;
 bool showCollisionGrid = false;
+LightPass* lightPass;
 
 // -------------- //
 // Input Handlers //
@@ -41,19 +42,19 @@ void onKeyPressed(int key) {
     const int& tileHeight = tmxmapwrapper->tileHeight;
     switch(key) {
         case KEY_LEFT:
-            camera->x -= tileWidth;
+            camera.position.x -= tileWidth;
             mouseX -= tileWidth;
             break;
         case KEY_RIGHT:
-            camera->x += tileWidth;
+            camera.position.x += tileWidth;
             mouseX += tileWidth;
             break;
         case KEY_UP:
-            camera->y -= tileHeight;
+            camera.position.y -= tileHeight;
             mouseY -= tileHeight;
             break;
         case KEY_DOWN:
-            camera->y += tileHeight;
+            camera.position.y += tileHeight;
             mouseY += tileHeight;
             break;
         case 'C':
@@ -64,8 +65,10 @@ void onKeyPressed(int key) {
 
 void onMouseMoved(float x, float y){
     // save where the mouse currently is (taking into account camera offset)
-    mouseX = x + (camera->x - cameraOffsetX);
-    mouseY = y + (camera->y - cameraOffsetY);
+    vec2 screen = vec2(x, y);
+    vec2 world = camera.screenToWorld(screen);
+    mouseX = world.x;
+    mouseY = world.y;
 }
 
 void onMouseClicked(int mouseButton){
@@ -154,9 +157,16 @@ void setupCharacter(){
         spritesheet->sprites[70]
     }, 5000);
 
+    lightPass->lights.push_back({
+        Light::LightType::SPOT,
+        vec2(0.0f, 0.0f),
+        vec4(1.0f),
+        0.25
+    });
+
     character = new Character(walkUp, walkRight, walkDown, walkLeft,
                               lookUp, lookRight, lookDown, lookLeft,
-                              84.0, 60.0, 5.0);
+                              84.0, 60.0, 5.0, camera, lightPass->lights.at(lightPass->lights.size() - 1));
 }
 
 void moveCharacter(){
@@ -200,21 +210,21 @@ void drawOutlined(std::function<void()> fnDraw) {
 void setup() {
     size(640, 480);
 
-    camera = new Camera(width / 2, height / 2);
-    tmxmapwrapper = new TmxMapWrapper("./resources/dungeons/dungeon-01/dungeon-01.tmx");
+    camera.position = vec2(width / 2, height / 2);
+    lightPass = new LightPass({passthrough}, camera);
+    tmxmapwrapper = new TmxMapWrapper("./resources/dungeons/dungeon-01/dungeon-01.tmx", lightPass->lights);
     setupCharacter();
     character->moveAbsolute(width / 2, height / 2);
-
-    cameraOffsetX = camera->x;
-    cameraOffsetY = camera->y;
 
     keyPressed(onKeyPressed);
     mouseMoved(onMouseMoved);
     mousePressed(onMouseClicked);
+
+    renderPass(lightPass);
 }
 
 void draw() {
-    camera->update();
+    camera.update();
     tmxmapwrapper->draw();
     if (showCollisionGrid) {
         drawColissionGrid();
@@ -231,7 +241,6 @@ void draw() {
 }
 
 void destroy() {
-    delete camera;
     delete tmxmapwrapper;
     delete walkUp;
     delete walkRight;
@@ -240,4 +249,5 @@ void destroy() {
     delete img;
     delete spritesheet;
     delete character;
+    delete lightPass;
 }
